@@ -1,6 +1,5 @@
-# Capstone – GitHub Actions Course Project
+# Capstone – GitHub Actions 
 
-This repository contains the capstone project for the [DevOps Directive GitHub Actions course](https://github.com/sidpalas/devops-directive-github-actions-course). Top-level directories include .github/ (workflows, composite actions, and config), services/ (the microservices), deploy/kubernetes/, utils/, plus a root Taskfile.yaml used by many workflows.  ￼
 
 ---
 
@@ -33,12 +32,12 @@ This repository contains the capstone project for the [DevOps Directive GitHub A
 
 1. **Run Tests** – .github/workflows/test.yaml
 
-    Triggers on push to main (only when files in services/** change), on any pull_request, and via workflow_dispatch. It uses dorny/paths-filter to detect changed services and fans out a matrix job to run tests per service using the local composite action ./.github/actions/setup-dependencies.  ￼
+    Triggers on push to master (only when files in services/** change), on any pull_request, and via workflow_dispatch. It uses dorny/paths-filter to detect changed services and fans out a matrix job to run tests per service using the local composite action ./.github/actions/setup-dependencies.  ￼
 
 2. **Build and Push Container Images** – .github/workflows/build-push.yaml
 
     Runs on:
-      •	push to main (builds changed services),
+      •	push to master (builds changed services),
       •	tagged releases matching **@[0-9]*.[0-9]*.[0-9]*, and
       •	manual workflow_dispatch (with service and optional version inputs).
 
@@ -50,7 +49,7 @@ This repository contains the capstone project for the [DevOps Directive GitHub A
 
 4. **Release Please** – .github/workflows/release-please.yaml
 
-    Runs on push to main and manually. Uses googleapis/release-please-action with a PAT to open PRs and tag releases across multiple packages defined in .github/utils/release-please-config.json and .github/utils/.release-please-manifest.json.  ￼
+    Runs on push to master and manually. Uses googleapis/release-please-action with a PAT to open PRs and tag releases across multiple packages defined in .github/utils/release-please-config.json and .github/utils/.release-please-manifest.json.  ￼
 
 5. **Export GitHub Action Timing Data** – .github/workflows/export-timing-data.yaml
 
@@ -61,8 +60,8 @@ This repository contains the capstone project for the [DevOps Directive GitHub A
     Nightly cron (0 0 * * *) + manual trigger, using actions/stale to label/close inactive issues and PRs.  ￼
 
 ### How the Pieces Fit Together
-1.	PR or push to main → Run Tests.
-2.	If main changes or a tag is pushed → Build & Push Container Images builds and publishes images, then triggers…
+1.	PR or push to master → Run Tests.
+2.	If master changes or a tag is pushed → Build & Push Container Images builds and publishes images, then triggers…
 3.	Update GitOps Manifests to roll out the new tag to the chosen environment.
 4.	Release Please automates versioning/changelogs across all services.
 5.	Export Timing Data collects performance telemetry for the above workflows.
@@ -77,8 +76,8 @@ To run workflows locally with act (https://github.com/nektos/act), there are Tas
 For example to run the `test` workflow:
 
 ```bash
-➜  capstone git:(main) ✗ cd .github/workflows/test
-➜  test git:(main) ✗ task trigger-workflow 
+➜  capstone git:(master) ✗ cd .github/workflows/test
+➜  test git:(master) ✗ task trigger-workflow 
 task: [trigger-workflow] act pull_request \
   --container-architecture linux/amd64 \
   -s GITHUB_TOKEN="<GITHUB_TOKEN>" \
