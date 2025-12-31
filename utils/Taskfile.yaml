@@ -102,7 +102,7 @@ tasks:
     desc: "Commit & push changes to a branch with exponential backoff retries"
     vars:
       COMMIT_MSG: '{{.COMMIT_MSG | default "chore: automated update [skip ci]"}}'
-      BRANCH: '{{.BRANCH | default "main"}}'
+      BRANCH: '{{.BRANCH | default "master"}}'
       MAX_RETRIES: "{{.MAX_RETRIES| default 5}}"
       BASE_DELAY: "{{.BASE_DELAY | default 2}}" # seconds, first backoff step
       JITTER_MAX: "{{.JITTER_MAX | default 3}}" # additional random seconds
