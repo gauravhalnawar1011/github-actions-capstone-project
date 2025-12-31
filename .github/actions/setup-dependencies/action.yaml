@@ -15,7 +15,7 @@ inputs:
     default: "false"
   install_node:
     description: "install node if true"
-    default: "false"
+    default: "true"
   install_python:
     description: "install python if true"
     default: "false"
