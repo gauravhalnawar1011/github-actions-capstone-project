@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
         with:
-          ref: main # Checking out the tip of main (vs the GITHUB_REF of the build workflow is more robust to merge conflicts since we merge back to main)
+          ref: master # Checking out the tip of master (vs the GITHUB_REF of the build workflow is more robust to merge conflicts since we merge back to master)
 
       - uses: ./.github/actions/setup-dependencies
         with:
@@ -71,4 +71,4 @@ jobs:
         run: |
           task utils:git:commit-push \
             COMMIT_MSG="${{ steps.generate-commit-message.outputs.commit_message }}" \
-            BRANCH=main
+            BRANCH=master
